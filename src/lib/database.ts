@@ -124,7 +124,7 @@ export async function getMessages(
     userId: number
 ) {
     try {
-        console.log('getMessages called with:', { chatsId, userId })
+        // console.log('getMessages called with:', { chatsId, userId })
         
         const { data: messages, error } = await supabase
             .from('messages')
@@ -133,7 +133,7 @@ export async function getMessages(
             .eq('user_id', userId)
             .order('created_at', { ascending: true })
         
-        console.log('Supabase query result:', { messages, error })
+        // console.log('Supabase query result:', { messages, error })
         
         if (error) throw error
         return messages
@@ -151,7 +151,7 @@ export async function createMessage(
     content: string
 ): Promise<Message | null> {
     try {
-        console.log('createMessage called with:', { userId, chatsId, role, contentLength: content?.length })
+        // console.log('createMessage called with:', { userId, chatsId, role, contentLength: content?.length })
         
         // パラメータの検証
         if (!userId || !chatsId || !role || !content) {
@@ -170,7 +170,7 @@ export async function createMessage(
             .select()
             .single()
         
-        console.log('Message creation result:', { message, error })
+        // console.log('Message creation result:', { message, error })
         
         if (error) throw error
         return message

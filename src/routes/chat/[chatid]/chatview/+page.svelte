@@ -21,15 +21,15 @@
 
         messages = data.messages || []
         chats_id = Number(data.chatId) || 0
-        console.log('Page data:', data)
-        console.log('Set chats_id to:', chats_id)
+        // console.log('Page data:', data)
+        // console.log('Set chats_id to:', chats_id)
         
-        console.log('Current user:', $user);
+        // console.log('Current user:', $user);
     });
 
     async function requestAI(inputMessage: string) {
         if (!$user?.id) {
-            console.error('No user ID available');
+            // console.error('No user ID available');
             alert('ユーザー情報が取得できません。再度ログインしてください。');
             goto('/auth/login');
             return null;
@@ -37,17 +37,17 @@
 
         const userId = Number($user.id);
         if (isNaN(userId) || userId <= 0) {
-            console.error('Invalid user ID:', $user.id);
+            // console.error('Invalid user ID:', $user.id);
             alert('無効なユーザーIDです。再度ログインしてください。');
             goto('/auth/login');
             return null;
         }
 
-        console.log('Sending request with:', {
-            userId,
-            chatsId: chats_id,
-            inputLength: inputMessage.length
-        });
+        // console.log('Sending request with:', {
+        //     userId,
+        //     chatsId: chats_id,
+        //     inputLength: inputMessage.length
+        // });
 
         try {
             isLoading = true;
@@ -66,7 +66,7 @@
 
             if (!response.ok) {
                 const errorText = await response.text();
-                console.error('API Error:', response.status, errorText);
+                // console.error('API Error:', response.status, errorText);
                 throw new Error(`API request failed: ${response.status}`);
             }
 
@@ -74,7 +74,7 @@
             chats_id = ai_message.newChatsId;
             return ai_message;
         } catch (error) {
-            console.error('Request failed:', error);
+            // console.error('Request failed:', error);
             alert('エラーが発生しました。もう一度お試しください。');
             return null;
         } finally {
