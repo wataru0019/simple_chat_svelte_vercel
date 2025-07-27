@@ -26,6 +26,7 @@
             })
         })
         const ai_message = await response.json()
+        chats_id = ai_message.newChatsId
         return ai_message
     }
 

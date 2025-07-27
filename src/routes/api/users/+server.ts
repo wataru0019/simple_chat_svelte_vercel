@@ -1,12 +1,16 @@
-import { prisma } from "$lib/prisma";
+import { supabase } from "$lib/supabase";
 import { json } from '@sveltejs/kit';
 import { createUser, updateUser } from "$lib/database"
 
 export async function GET() {
     try {
-        const users = await prisma.user.findUniqueOrThrow({
-            where: { id: 1 }
-        })
+        const { data: users, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('id', 1)
+            .single()
+        
+        if (error) throw error
         return json(users)
     } catch (error) {
         console.log(error)
@@ -24,7 +28,7 @@ export async function POST({ request }) {
 }
 
 export async function PATCH({ request }) {
-    const { id, email, name, avator } = await request.json()
+    const { id, email, name, avatar } = await request.json()
 
     if(!id) {
         return json({ message: "IDがありません"}, { status: 400 })
@@ -32,7 +36,7 @@ export async function PATCH({ request }) {
     const data = {
         email,
         name,
-        avator
+        avatar
     }
     try {
         const user = await updateUser(Number(id), data)

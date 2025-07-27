@@ -7,7 +7,7 @@
 <div>
     <Header />
     <div class="chat-list-wrapper">
-        {#each data.chatlist as chat}
+        {#each (data.chatlist || []) as chat}
             <div class="chat-link">
                 <a href={"/chat/"+ chat?.id + "/chatview"}>
                     <p>チャットID：{chat?.id}</p>
