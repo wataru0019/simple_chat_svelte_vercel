@@ -1,0 +1,39 @@
+:root {
+    /*  Global CSS Variables */
+    /* Color */
+    --primary-color: #73939F;
+    --light-accent-color: #8DBBBB;
+    --dark-shade-color: #364F65;
+    --dark-accent-color: #968F86;
+    --light-shade: #FAFAFA;
+    /* Space */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-xxl: 48px;
+    /* Font */
+    --font-family: 'ヒラギノ明朝', 'Arial', sans-serif;
+    --font-size-base: 16px;
+    --font-size-lg: 18px;
+    --font-size-sm: 14px;
+    --font-weight-normal: 400;
+    --font-weight-bold: 700;
+    /* Border */
+    --border-radius: 4px;
+    --border-width: 1px;
+    /* Shadow */
+    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Transition */
+    --transition-duration: 0.3s;
+    --transition-timing: ease-in-out;
+}
+
+/* 全体のスクロール防止 */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+}

@@ -1,0 +1,9 @@
+name = "simple-chat-svelte"
+main = ".svelte-kit/cloudflare/index.js"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# 静的アセット設定（必須）
+[assets]
+directory = ".svelte-kit/cloudflare/client"
+binding = "ASSETS"
