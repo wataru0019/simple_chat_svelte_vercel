@@ -1,49 +1,42 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  avatar String?
-  password String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // リレーション
-  chat Chats[]
-  messages Message[]
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  name      String?
+  avatar    String?
+  password  String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  chat      Chats[]
+  messages  Message[]
 }
 
 model Chats {
-  id    Int     @id @default(autoincrement())
-  userId Int // 外部キー
-  user User @relation(fields: [userId], references: [id])
-  messages Message[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  user      User      @relation(fields: [userId], references: [id])
+  messages  Message[]
 }
 
 model Message {
-  id    Int     @id @default(autoincrement())
-  role  String
-  content String
-  userId Int  // 外部キー
-  chatsId Int  // 外部キー
-  user User @relation(fields: [userId], references: [id])
-  chats Chats @relation(fields: [chatsId], references: [id])
+  id        Int      @id @default(autoincrement())
+  role      String
+  content   String
+  userId    Int
+  chatsId   Int
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
+  chats     Chats    @relation(fields: [chatsId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 }
