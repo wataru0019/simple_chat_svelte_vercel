@@ -22,7 +22,7 @@ const config = {
 		adapter: adapter({
 			// オプション設定
 			runtime: 'nodejs20.x', // またはnodejs20.x
-			regions: ['nrt1'], // 東京リージョン（日本の場合）
+			regions: ['hnd1'], // 東京リージョン（日本の場合）
 			split: false
 		})
 	}
