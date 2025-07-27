@@ -32,6 +32,8 @@ export async function POST({ request }) {
        if (newChats?.id && resAI) {
            const newUserMessage = await createMessage(userId, newChats.id, "user", input)
            const newAiMessage = await createMessage(userId, newChats.id, "assistant", resAI)
+           console.log(newUserMessage)
+           console.log(newAiMessage)
        }
     } else {
         console.log("ChatsId:" + chatsId)
@@ -39,6 +41,8 @@ export async function POST({ request }) {
         if (resAI) {
             const newUserMessage = await createMessage(userId, chatsId, "user", input)
             const newAiMessage = await createMessage(userId, chatsId, "assistant", resAI)
+            console.log(newUserMessage)
+           console.log(newAiMessage)
         }
     }
     return json({ message: resAI, newChatsId: newChatsId })
