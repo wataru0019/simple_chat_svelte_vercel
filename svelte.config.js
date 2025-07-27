@@ -21,7 +21,7 @@ const config = {
 	kit: {
 		adapter: adapter({
 			// オプション設定
-			runtime: 'nodejs18.x', // またはnodejs20.x
+			runtime: 'nodejs20.x', // またはnodejs20.x
 			regions: ['nrt1'], // 東京リージョン（日本の場合）
 			split: false
 		})
