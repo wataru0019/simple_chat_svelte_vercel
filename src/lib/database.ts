@@ -84,17 +84,20 @@ export async function createChats(
     userId: number
 ): Promise<Chats | null> {
     try {
+        console.log('createChats called with userId:', userId)
+        
         const { data: chats, error } = await supabase
             .from('chats')
             .insert({ user_id: userId })
             .select()
             .single()
         
+        console.log('createChats result:', { chats, error })
+        
         if (error) throw error
         return chats
     } catch(error) {
-        console.error("チャット作成エラー：")
-        console.error(error)
+        console.error("チャット作成エラー：", error)
         return null
     }
 }
@@ -121,16 +124,22 @@ export async function getMessages(
     userId: number
 ) {
     try {
+        console.log('getMessages called with:', { chatsId, userId })
+        
         const { data: messages, error } = await supabase
             .from('messages')
             .select('*')
             .eq('chats_id', chatsId)
             .eq('user_id', userId)
+            .order('created_at', { ascending: true })
+        
+        console.log('Supabase query result:', { messages, error })
         
         if (error) throw error
         return messages
     } catch(error) {
-        console.error("メッセージ取得エラー" + error)
+        console.error("メッセージ取得エラー:", error)
+        console.error(error)
         return null
     }
 }
@@ -142,6 +151,14 @@ export async function createMessage(
     content: string
 ): Promise<Message | null> {
     try {
+        console.log('createMessage called with:', { userId, chatsId, role, contentLength: content?.length })
+        
+        // パラメータの検証
+        if (!userId || !chatsId || !role || !content) {
+            console.error('Invalid parameters:', { userId, chatsId, role, content })
+            return null
+        }
+        
         const { data: message, error } = await supabase
             .from('messages')
             .insert({
@@ -153,10 +170,12 @@ export async function createMessage(
             .select()
             .single()
         
+        console.log('Message creation result:', { message, error })
+        
         if (error) throw error
         return message
     } catch (error) {
-        console.error("メッセージ作成エラー：" + error)
+        console.error("メッセージ作成エラー：", error)
         return null
     }
 }
